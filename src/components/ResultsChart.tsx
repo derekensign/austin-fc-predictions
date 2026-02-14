@@ -49,12 +49,19 @@ export default function ResultsChart({ question }: ResultsChartProps) {
             </div>
           </div>
           <div className="h-10 bg-[#252525] rounded-lg overflow-hidden">
-            <motion.div
-              className={`h-full rounded-lg ${majority === 'OVER' ? 'bg-gradient-to-r from-verde-500 to-verde-600' : 'bg-gray-600'}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${Math.max(overPct, 2)}%` }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            />
+            {overPct > 0 && (
+              <motion.div
+                className="h-full rounded-lg"
+                style={{
+                  background: majority === 'OVER'
+                    ? 'linear-gradient(to right, #00b140, #008f34)'
+                    : '#4b5563'
+                }}
+                initial={{ width: 0 }}
+                animate={{ width: `${overPct}%` }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              />
+            )}
           </div>
         </div>
 
@@ -74,12 +81,19 @@ export default function ResultsChart({ question }: ResultsChartProps) {
             </div>
           </div>
           <div className="h-10 bg-[#252525] rounded-lg overflow-hidden">
-            <motion.div
-              className={`h-full rounded-lg ${majority === 'UNDER' ? 'bg-gradient-to-r from-verde-500 to-verde-600' : 'bg-gray-600'}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${Math.max(underPct, 2)}%` }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            />
+            {underPct > 0 && (
+              <motion.div
+                className="h-full rounded-lg"
+                style={{
+                  background: majority === 'UNDER'
+                    ? 'linear-gradient(to right, #00b140, #008f34)'
+                    : '#4b5563'
+                }}
+                initial={{ width: 0 }}
+                animate={{ width: `${underPct}%` }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              />
+            )}
           </div>
         </div>
       </div>
