@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Austin FC Predictions App
 
-## Getting Started
+An interactive web app for Austin FC fans to submit predictions on over/under questions and view live results.
 
-First, run the development server:
+## Features
+
+- **User Predictions**: Submit name, email, and answers to over/under questions
+- **Live Results**: Real-time polling (3-second intervals) showing percentage splits
+- **Admin Dashboard**: View all submissions, calculate scores, identify winners
+- **CSV Export**: Download all results for sharing
+- **Austin FC Branding**: Verde green (#00b140), black, and white color scheme
+
+## Tech Stack
+
+- **Framework**: Next.js 16 with App Router
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS 4
+- **Database**: Neon PostgreSQL
+- **Authentication**: bcrypt password hashing
+- **Animation**: Framer Motion
+
+## Quick Start
+
+### 1. Install Dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Set Up Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a free Neon PostgreSQL database at https://neon.tech and run `sql/schema.sql`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Configure Environment
 
-## Learn More
+```bash
+cp .env.example .env.local
+# Edit .env.local with your DATABASE_URL and ADMIN_PASSWORD_HASH
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Import Questions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+POST your questions JSON to `/api/seed` (see format in README)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 5. Run Development Server
 
-## Deploy on Vercel
+```bash
+nvm use 20.20.0  # If using nvm
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Visit [http://localhost:3000](http://localhost:3000)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Environment Variables
+
+Create `.env.local` with:
+
+```bash
+DATABASE_URL=postgresql://user:password@host/database
+ADMIN_PASSWORD_HASH=<bcrypt hash>
+NODE_ENV=development
+```
+
+Generate admin password hash:
+```bash
+node -e "const bcrypt = require('bcrypt'); bcrypt.hash('your-password', 10).then(console.log);"
+```
+
+## Usage
+
+- **Users**: Submit predictions at `/`
+- **Results**: View live results at `/results`
+- **Admin**: Login at `/admin/login`
+
+## Deployment
+
+1. Push to GitHub
+2. Import in Vercel
+3. Add Neon PostgreSQL integration
+4. Set environment variables
+5. Deploy
+
+Built with ❤️ for Austin FC fans
