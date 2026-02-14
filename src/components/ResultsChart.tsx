@@ -8,7 +8,8 @@ interface ResultsChartProps {
 }
 
 export default function ResultsChart({ question }: ResultsChartProps) {
-  const majority = question.over_count > question.under_count ? 'OVER' : 'UNDER';
+  const majority = question.over_count > question.under_count ? 'OVER' :
+                   question.under_count > question.over_count ? 'UNDER' : null;
 
   // Safely convert percentages to numbers (handle null/undefined/string)
   const overPct = Number(question.over_percentage) || 0;
@@ -38,20 +39,22 @@ export default function ResultsChart({ question }: ResultsChartProps) {
             <span className={`font-bold text-sm uppercase ${majority === 'OVER' ? 'text-verde-500' : 'text-gray-400'}`}>
               Over
             </span>
-            <span className={`font-bold ${majority === 'OVER' ? 'text-verde-500' : 'text-gray-400'}`}>
-              {overPct.toFixed(1)}%
-            </span>
-          </div>
-          <div className="h-8 bg-obsidian-lighter rounded-lg overflow-hidden relative">
-            <motion.div
-              className={`h-full rounded-lg ${majority === 'OVER' ? 'bg-verde-gradient' : 'bg-gray-700'}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${overPct}%` }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center text-sm font-bold">
-              {question.over_count} {question.over_count === 1 ? 'vote' : 'votes'}
+            <div className="flex items-center gap-3">
+              <span className="text-gray-400 text-sm">
+                {question.over_count} {question.over_count === 1 ? 'vote' : 'votes'}
+              </span>
+              <span className={`font-bold text-lg ${majority === 'OVER' ? 'text-verde-500' : 'text-white'}`}>
+                {overPct.toFixed(0)}%
+              </span>
             </div>
+          </div>
+          <div className="h-10 bg-[#252525] rounded-lg overflow-hidden">
+            <motion.div
+              className={`h-full rounded-lg ${majority === 'OVER' ? 'bg-gradient-to-r from-verde-500 to-verde-600' : 'bg-gray-600'}`}
+              initial={{ width: 0 }}
+              animate={{ width: `${Math.max(overPct, 2)}%` }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            />
           </div>
         </div>
 
@@ -61,26 +64,28 @@ export default function ResultsChart({ question }: ResultsChartProps) {
             <span className={`font-bold text-sm uppercase ${majority === 'UNDER' ? 'text-verde-500' : 'text-gray-400'}`}>
               Under
             </span>
-            <span className={`font-bold ${majority === 'UNDER' ? 'text-verde-500' : 'text-gray-400'}`}>
-              {underPct.toFixed(1)}%
-            </span>
-          </div>
-          <div className="h-8 bg-obsidian-lighter rounded-lg overflow-hidden relative">
-            <motion.div
-              className={`h-full rounded-lg ${majority === 'UNDER' ? 'bg-verde-gradient' : 'bg-gray-700'}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${underPct}%` }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center text-sm font-bold">
-              {question.under_count} {question.under_count === 1 ? 'vote' : 'votes'}
+            <div className="flex items-center gap-3">
+              <span className="text-gray-400 text-sm">
+                {question.under_count} {question.under_count === 1 ? 'vote' : 'votes'}
+              </span>
+              <span className={`font-bold text-lg ${majority === 'UNDER' ? 'text-verde-500' : 'text-white'}`}>
+                {underPct.toFixed(0)}%
+              </span>
             </div>
+          </div>
+          <div className="h-10 bg-[#252525] rounded-lg overflow-hidden">
+            <motion.div
+              className={`h-full rounded-lg ${majority === 'UNDER' ? 'bg-gradient-to-r from-verde-500 to-verde-600' : 'bg-gray-600'}`}
+              initial={{ width: 0 }}
+              animate={{ width: `${Math.max(underPct, 2)}%` }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            />
           </div>
         </div>
       </div>
 
-      <div className="mt-4 text-center text-sm text-gray-400">
-        {question.total_answers} total {question.total_answers === 1 ? 'answer' : 'answers'}
+      <div className="mt-4 text-center text-sm text-gray-500">
+        {question.total_answers} total {question.total_answers === 1 ? 'response' : 'responses'}
       </div>
     </motion.div>
   );
