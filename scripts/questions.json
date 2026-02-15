@@ -1,0 +1,84 @@
+{
+  "questions": [
+    {
+      "text": "Austin FC Hat tricks: Over/Under 0.5",
+      "order_index": 1
+    },
+    {
+      "text": "Austin FC Away Wins: Over/Under 4.5",
+      "order_index": 2
+    },
+    {
+      "text": "Combined \"Owen\" goals (Wolff + OG): Over/Under 8.5",
+      "order_index": 3
+    },
+    {
+      "text": "Number of Owen Wolff goal involvements: Over/Under 11.5",
+      "order_index": 4
+    },
+    {
+      "text": "Number of penalties taken by Myrto Uzuni: Over/Under 1.5",
+      "order_index": 5
+    },
+    {
+      "text": "Number of players who score more goals than Uzuni: Over/Under 2.5",
+      "order_index": 6
+    },
+    {
+      "text": "Brad Stuver Clean Sheets: Over/Under 7.5",
+      "order_index": 7
+    },
+    {
+      "text": "Number of starts by Damian Las (all Comps): Over/Under 3.5",
+      "order_index": 8
+    },
+    {
+      "text": "Brandon Vazquez apperances: Over/Under 23.5",
+      "order_index": 9
+    },
+    {
+      "text": "Facundo Torres G+A: Over/Under 14.5",
+      "order_index": 10
+    },
+    {
+      "text": "Number of CJ Fodrey goals after the 80': Over/Under 2.5",
+      "order_index": 11
+    },
+    {
+      "text": "Dani Pereira Yellow Cards: Over/Under 6.5",
+      "order_index": 12
+    },
+    {
+      "text": "Copa Tejas points: Over/Under 5.5",
+      "order_index": 13
+    },
+    {
+      "text": "Number of McConoughey in stadium appearances: Over/Under 3.5",
+      "order_index": 14
+    },
+    {
+      "text": "Number of Austin FC matches where teams combine for 2 or fewer goals: Over/Under 18.5",
+      "order_index": 15
+    },
+    {
+      "text": "Number of Knock Out matches (LC/USOC/MLS Playoffs): Over/Under 2.5",
+      "order_index": 16
+    },
+    {
+      "text": "Number of the first goal scorer for Austin FC: Over/Under 10.5",
+      "order_index": 17
+    },
+    {
+      "text": "Number of announced Sell Outs at Q2: Over/Under 16.5",
+      "order_index": 18
+    },
+    {
+      "text": "% of goals Austin FC scores attacking the South End: Over/Under 56.5",
+      "order_index": 19
+    },
+    {
+      "text": "Austin FC final finish (Higher is a better seed): Over/Under 7.5",
+      "order_index": 20
+    }
+  ]
+}

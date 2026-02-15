@@ -97,11 +97,15 @@ export default function ResultsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl font-bold text-verde-500 mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-verde-500 via-verde-400 to-verde-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(0,177,64,0.5)]">
             Live Results
           </h1>
-          <p className="text-gray-300 text-lg mb-2">
-            See how others are predicting the season
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-verde-500 to-transparent"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-verde-500 to-transparent"></div>
+          </div>
+          <p className="text-gray-300 text-base sm:text-lg mb-2 px-4">
+            See how others are predicting the <span className="text-verde-500 font-semibold">2026 season</span>
           </p>
           <div className="inline-block bg-verde-500/10 border border-verde-500 rounded-full px-6 py-2">
             <span className="text-verde-500 font-bold text-lg">

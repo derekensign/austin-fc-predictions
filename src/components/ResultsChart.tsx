@@ -98,8 +98,9 @@ export default function ResultsChart({ question }: ResultsChartProps) {
         </div>
       </div>
 
-      <div className="mt-4 text-center text-sm text-gray-500">
-        {question.total_answers} total {question.total_answers === 1 ? 'response' : 'responses'}
+      <div className="mt-4 pt-4 border-t border-verde-500/20 text-center text-sm">
+        <span className="text-verde-500 font-semibold">{question.total_answers}</span>
+        <span className="text-gray-500"> total {question.total_answers === 1 ? 'response' : 'responses'}</span>
       </div>
     </motion.div>
   );

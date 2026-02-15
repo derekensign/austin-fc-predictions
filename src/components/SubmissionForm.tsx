@@ -137,12 +137,16 @@ export default function SubmissionForm() {
     <div className="min-h-screen py-12 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-verde-500 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-verde-500 via-verde-400 to-verde-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(0,177,64,0.5)]">
             Austin FC Predictions
           </h1>
-          <p className="text-gray-300 text-lg">
-            Make your predictions for the season!
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-verde-500 to-transparent"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-verde-500 to-transparent"></div>
+          </div>
+          <p className="text-gray-300 text-base sm:text-lg mt-4 px-4">
+            Make your over/under predictions for the <span className="text-verde-500 font-semibold">2026 season</span>!
           </p>
 
           {/* Info Message */}
@@ -156,12 +160,12 @@ export default function SubmissionForm() {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Personal Info */}
           <div className="card">
-            <h2 className="text-2xl font-bold text-white mb-6">
+            <h2 className="text-2xl font-bold text-verde-500 mb-6">
               Your Information
             </h2>
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="name" className="block text-sm font-semibold text-verde-500 mb-2 uppercase tracking-wide">
                   Name
                 </label>
                 <input
@@ -180,7 +184,7 @@ export default function SubmissionForm() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-verde-500 mb-2 uppercase tracking-wide">
                   Email
                 </label>
                 <input
@@ -201,27 +205,9 @@ export default function SubmissionForm() {
             </div>
           </div>
 
-          {/* Progress Bar */}
-          <div className="card">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-300">
-                Progress: {answeredCount} / {questions.length} questions answered
-              </span>
-              <span className="text-sm font-medium text-verde-500">
-                {Math.round(progress)}%
-              </span>
-            </div>
-            <div className="progress-bar">
-              <div
-                className="progress-bar-fill"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-
           {/* Questions */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-2xl font-bold text-verde-500 border-b-2 border-verde-500 pb-3">
               Your Predictions
             </h2>
             {questions.map((question) => (
@@ -241,6 +227,24 @@ export default function SubmissionForm() {
               {error}
             </div>
           )}
+
+          {/* Progress Bar */}
+          <div className="card">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold text-verde-500 uppercase tracking-wide">
+                Progress: {answeredCount} / {questions.length} questions answered
+              </span>
+              <span className="text-lg font-bold text-verde-500">
+                {Math.round(progress)}%
+              </span>
+            </div>
+            <div className="progress-bar">
+              <div
+                className="progress-bar-fill"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
 
           {/* Submit Button */}
           <button
