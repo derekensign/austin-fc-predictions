@@ -136,26 +136,12 @@ export default function SubmissionForm() {
   return (
     <div className="min-h-screen py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-verde-500 via-verde-400 to-verde-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(0,177,64,0.5)]">
-            Austin FC Predictions
-          </h1>
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-verde-500 to-transparent"></div>
-            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-verde-500 to-transparent"></div>
+        {/* Info Message */}
+        {infoMessage && (
+          <div className="mb-6 bg-verde-500/10 border border-verde-500 text-verde-500 px-4 py-3 rounded-lg text-center">
+            {infoMessage}
           </div>
-          <p className="text-gray-300 text-base sm:text-lg mt-4 px-4">
-            Make your over/under predictions for the <span className="text-verde-500 font-semibold">2026 season</span>!
-          </p>
-
-          {/* Info Message */}
-          {infoMessage && (
-            <div className="mt-4 bg-verde-500/10 border border-verde-500 text-verde-500 px-4 py-3 rounded-lg inline-block">
-              {infoMessage}
-            </div>
-          )}
-        </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Personal Info */}
@@ -181,6 +167,7 @@ export default function SubmissionForm() {
                   placeholder="Enter your name"
                   disabled={submitting}
                   required
+                  className="w-full"
                 />
               </div>
               <div>
@@ -200,6 +187,7 @@ export default function SubmissionForm() {
                   placeholder="Enter your email"
                   disabled={submitting}
                   required
+                  className="w-full"
                 />
               </div>
             </div>

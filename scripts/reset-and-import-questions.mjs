@@ -1,10 +1,9 @@
 /**
- * Direct database import script (no API needed)
- * Requires DATABASE_URL environment variable
+ * Reset and reimport questions script
+ * WARNING: This will delete ALL questions and answers (submissions will be deleted too due to cascade)
  *
  * Usage:
- *   With .env.local: source .env.local && node scripts/import-questions-direct.js
- *   Or directly: DATABASE_URL="..." node scripts/import-questions-direct.js
+ *   source .env.local && node scripts/reset-and-import-questions.js
  */
 
 import { neon } from '@neondatabase/serverless';
@@ -32,7 +31,7 @@ const QUESTIONS = [
   { prop: "Austin FC final finish (Higher is a better seed)", line: 7.5 },
 ];
 
-async function importQuestions() {
+async function resetAndImport() {
   if (!process.env.DATABASE_URL) {
     console.error('❌ DATABASE_URL environment variable not found');
     console.error('Make sure you have a .env.local file with DATABASE_URL set');
@@ -41,7 +40,35 @@ async function importQuestions() {
 
   const sql = neon(process.env.DATABASE_URL);
 
-  console.log('Connecting to database...');
+  console.log('⚠️  WARNING: This will delete ALL questions, answers, and submissions!\n');
+
+  // Check current state
+  const questionCount = await sql`SELECT COUNT(*)::int as count FROM questions`;
+  const submissionCount = await sql`SELECT COUNT(*)::int as count FROM submissions`;
+  const answerCount = await sql`SELECT COUNT(*)::int as count FROM answers`;
+
+  console.log('Current database state:');
+  console.log(`  Questions: ${questionCount[0].count}`);
+  console.log(`  Submissions: ${submissionCount[0].count}`);
+  console.log(`  Answers: ${answerCount[0].count}\n`);
+
+  console.log('Starting cleanup...\n');
+
+  // Delete all data (cascades will handle answers due to ON DELETE CASCADE)
+  await sql`DELETE FROM answers`;
+  console.log('✓ Deleted all answers');
+
+  await sql`DELETE FROM submissions`;
+  console.log('✓ Deleted all submissions');
+
+  await sql`DELETE FROM questions`;
+  console.log('✓ Deleted all questions\n');
+
+  // Reset the sequence for questions ID
+  await sql`ALTER SEQUENCE questions_id_seq RESTART WITH 1`;
+  console.log('✓ Reset question ID sequence\n');
+
+  // Import new questions
   console.log(`Importing ${QUESTIONS.length} questions...\n`);
 
   let count = 0;
@@ -62,10 +89,11 @@ async function importQuestions() {
     }
   }
 
-  console.log(`\n✓ Successfully imported ${count} of ${QUESTIONS.length} questions`);
+  console.log(`\n✅ Successfully imported ${count} of ${QUESTIONS.length} questions`);
+  console.log('Database is ready for new submissions!');
 }
 
-importQuestions().catch(error => {
+resetAndImport().catch(error => {
   console.error('❌ Error:', error);
   process.exit(1);
 });
