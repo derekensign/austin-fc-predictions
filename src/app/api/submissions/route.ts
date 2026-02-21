@@ -11,9 +11,20 @@ import type {
   GetResultsResponse,
 } from '@/types';
 
+// Submission deadline: 7 PM CT on Feb 21, 2026 (UTC-6 in February)
+const SUBMISSION_DEADLINE = new Date('2026-02-22T01:00:00.000Z');
+
 // POST - Create a new submission
 export async function POST(request: NextRequest) {
   try {
+    // Check submission deadline
+    if (new Date() >= SUBMISSION_DEADLINE) {
+      return NextResponse.json(
+        { success: false, error: 'Submissions are now closed.' } as CreateSubmissionResponse,
+        { status: 403 }
+      );
+    }
+
     const body: CreateSubmissionRequest = await request.json();
     const { name, email, answers } = body;
 

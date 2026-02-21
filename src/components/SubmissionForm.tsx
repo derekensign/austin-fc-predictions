@@ -5,6 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import QuestionCard from './QuestionCard';
 import type { Question } from '@/types';
 
+// Submission deadline: 7 PM CT on Feb 21, 2026 (UTC-6 in February)
+const SUBMISSION_DEADLINE = new Date('2026-02-22T01:00:00.000Z');
+
 export default function SubmissionForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -16,6 +19,19 @@ export default function SubmissionForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
+  const [submissionsClosed, setSubmissionsClosed] = useState(false);
+
+  // Check if submissions are past the deadline
+  useEffect(() => {
+    function checkDeadline() {
+      if (new Date() >= SUBMISSION_DEADLINE) {
+        setSubmissionsClosed(true);
+      }
+    }
+    checkDeadline();
+    const interval = setInterval(checkDeadline, 30_000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Check for redirect message
   useEffect(() => {
@@ -129,6 +145,29 @@ export default function SubmissionForm() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-verde-500 text-xl">Loading questions...</div>
+      </div>
+    );
+  }
+
+  if (submissionsClosed) {
+    return (
+      <div className="min-h-screen py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="card text-center py-16">
+            <h2 className="text-3xl font-bold text-verde-500 mb-4">
+              Submissions Are Closed
+            </h2>
+            <p className="text-gray-300 text-lg mb-8">
+              The prediction window has ended. Check out the results!
+            </p>
+            <button
+              onClick={() => router.push('/results')}
+              className="btn-primary px-8 py-3 text-lg"
+            >
+              View Results
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
